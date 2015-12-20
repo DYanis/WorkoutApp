@@ -109,6 +109,8 @@
             };
 
             (this.DataContext as AddWorkoutPageViewModel).Exercises.Add(newExercise);
+
+            ToastHelper.PopToast("Workout template", string.Format("{0} was added to the workout.", this.exerciseName.Text));
         }
 
         private async void OnAddNewWorkoutClick(object sender, RoutedEventArgs e)
@@ -120,6 +122,8 @@
                 Start = this.workoutTime.Time,
                 Type = (WorkoutType)this.workoutTypes.SelectedValue
             };
+
+            ToastHelper.PopToast("Workout", "Added to reminders.");
 
             await InserWorkoutAsync(newDailyWorkout);
         }

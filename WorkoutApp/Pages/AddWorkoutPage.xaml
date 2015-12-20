@@ -29,12 +29,14 @@
                 <RowDefinition Height="300"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2.7*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Name="workoutDay"
+                       Text="Choose day"
                        Grid.Row="0"
                        Grid.Column="0"
                        VerticalAlignment="Center"/>
