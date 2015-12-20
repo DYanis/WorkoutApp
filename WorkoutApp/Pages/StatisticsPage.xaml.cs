@@ -1,20 +1,19 @@
 ﻿namespace WorkoutApp.Pages
 {
+    using Mvvm.ViewModels;
     using System;
-    using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using WorkoutApp.Mvvm.ViewModels;
 
-    public sealed partial class AddWorkoutPage : Page
+    public sealed partial class StatisticsPage : Page
     {
-        private string curentView = "AddWorkout";
+        private string curentView = "Statistics";
 
-        public AddWorkoutPage()
+        public StatisticsPage()
         {
             this.InitializeComponent();
-            this.DataContext = new AddWorkoutPageViewModel();
-            this.weekDays.SelectedIndex = 0;
-            this.workoutTypes.SelectedIndex = 0;
+            this.DataContext = new StatisticsPageViewModel();
+
+            //TODO: Navigation events
             this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
             this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
             this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
@@ -64,21 +63,6 @@
             {
                 Frame.Navigate(typeof(SettingsPage));
             }
-        }
-
-        private void OnGoToHomePageClick(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(MainPage));
-        }
-
-        private void OnGoToMotivationPageClick(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(MotivationPage));
-        }
-
-        private void OnGoToSettingsPageClick(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(SettingsPage));
         }
     }
 }

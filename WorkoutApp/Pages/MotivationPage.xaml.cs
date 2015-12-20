@@ -55,7 +55,7 @@
         {
             if (curentView != "Statistics")
             {
-                //Frame.Navigate(typeof(StatisticsPage));
+                Frame.Navigate(typeof(StatisticsPage));
             }
         }
 

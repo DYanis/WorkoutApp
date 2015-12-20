@@ -107,6 +107,7 @@
     <Compile Include="Mvvm\DailyWorkout.cs" />
     <Compile Include="Mvvm\ViewModels\AddWorkoutPageViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\ExercisesPageViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\StatisticsPageViewModel.cs" />
     <Compile Include="Mvvm\WorkoutType.cs" />
     <Compile Include="Pages\AddWorkoutPage.xaml.cs">
       <DependentUpon>AddWorkoutPage.xaml</DependentUpon>
@@ -126,6 +127,9 @@
     <Compile Include="Mvvm\ViewModels\ViewModelBase.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StatisticsPage.xaml.cs">
+      <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -174,6 +178,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StatisticsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

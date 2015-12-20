@@ -1,6 +1,5 @@
 ﻿namespace WorkoutApp.Pages
 {
-    using CustomControls;
     using Helpers;
     using System;
     using Windows.UI.Xaml;
@@ -56,7 +55,7 @@
         {
             if (curentView != "Statistics")
             {
-                //Frame.Navigate(typeof(StatisticsPage));
+                Frame.Navigate(typeof(StatisticsPage));
             }
         }
 

@@ -1,0 +1,18 @@
+﻿<Page xmlns:CustomControls="using:WorkoutApp.CustomControls"
+    x:Class="WorkoutApp.Pages.StatisticsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WorkoutApp.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <CustomControls:AppNavigation x:Name="AppNav" Grid.Row="1" Height="50" VerticalAlignment="Bottom"/>
+    </Grid>
+</Page>
