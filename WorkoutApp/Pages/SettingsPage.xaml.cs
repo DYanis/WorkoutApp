@@ -2,6 +2,7 @@
 {
     using Helpers;
     using System;
+    using Windows.ApplicationModel;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using WorkoutApp.Mvvm.ViewModels;
