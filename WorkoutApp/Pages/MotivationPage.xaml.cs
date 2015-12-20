@@ -3,6 +3,7 @@
     using Helpers;
     using Mvvm.ViewModels;
     using System;
+    using Windows.ApplicationModel;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 
@@ -21,6 +22,19 @@
             this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
             this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
             this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
+
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+            Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+        }
+
+        private void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            ToastHelper.PopToast("Workout", "Suspend");
+        }
+
+        private void App_Resuming(object sender, object e)
+        {
+            ToastHelper.PopToast("Workout", "Resume/Start");
         }
 
         private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
@@ -28,10 +42,6 @@
             if (curentView != "Home")
             {
                 Frame.Navigate(typeof(MainPage));
-            }
-            else
-            {
-                //TODO: Get new inspiration tip.
             }
         }
 
@@ -121,6 +131,7 @@
                 Tuple<string, string> exercise = await exerciseManager.GetRandomExerciseAsync();
                 this.MediaElement.Source = new Uri(exercise.Item2);
                 this.ExerciseTitle.Text = exercise.Item1;
+                ToastHelper.PopToast("Now watching", exercise.Item1);
             }
         }
     }

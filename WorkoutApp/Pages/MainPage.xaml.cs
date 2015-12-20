@@ -14,30 +14,101 @@
     using SQLite.Net.Platform.WinRT;
     using System.Threading.Tasks;
     using System.Collections.Generic;
-    using System.Linq;
+    using Helpers;
+    using Windows.ApplicationModel;
 
     public sealed partial class MainPage : Page
     {
         private string curentView = "Home";
+        private AssetsHelper assetsHelper;
         private Timer timer;
 
         public MainPage()
         {
             this.InitializeComponent();
+            var mainPageViewModel = new MainPageViewModel();
+
+            //TODO: SQL
             this.InitAsync();
             this.DataContext = new MainPageViewModel();
-//this.RefreshPage();
-
-
+            //this.RefreshPage();
 
             this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
             this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
             this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
             this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
             this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
+
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+            Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+
+            this.assetsHelper = new AssetsHelper();
+            this.assetsHelper.GetTipsData();
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Friday,
+                Type = WorkoutType.CrossFit,
+                Start = new TimeSpan(5, 24, 33)
+            });
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Sunday,
+                Type = WorkoutType.Fitness,
+                Start = new TimeSpan(13, 24, 33)
+            });
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Sunday,
+                Type = WorkoutType.Fitness,
+                Start = new TimeSpan(13, 24, 33)
+            });
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Sunday,
+                Type = WorkoutType.Fitness,
+                Start = new TimeSpan(13, 24, 33)
+            });
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Sunday,
+                Type = WorkoutType.Fitness,
+                Start = new TimeSpan(13, 24, 33)
+            });
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Sunday,
+                Type = WorkoutType.Fitness,
+                Start = new TimeSpan(13, 24, 33)
+            });
+
+            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
+            {
+                Day = DayOfWeek.Sunday,
+                Type = WorkoutType.Fitness,
+                Start = new TimeSpan(13, 24, 33)
+            });
+
+
+            this.DataContext = mainPageViewModel;
         }
 
-        private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
+        private void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            ToastHelper.PopToast("Workout", "Suspend");
+        }
+
+        private void App_Resuming(object sender, object e)
+        {
+            ToastHelper.PopToast("Workout", "Resume/Start");
+        }
+
+        private async void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
         {
             if (curentView != "Home")
             {
@@ -45,7 +116,10 @@
             }
             else
             {
-                //TODO: Get new inspiration tip.
+                var tips = new GetRandomInspirationTip();
+                string tip = await tips.GetInspirationTipAsync();
+                this.InspirationTip.Text = tip;
+                ToastHelper.PopToast("Motivational tip", tip);
             }
         }
 
@@ -84,11 +158,9 @@
         private async void PopulateInspirationTipAsync(object sender, RoutedEventArgs e)
         {
             {
-                //TODO: This is just to test that the async method works. Remove at a later point.
                 var tips = new GetRandomInspirationTip();
                 string tip = await tips.GetInspirationTipAsync();
                 this.InspirationTip.Text = tip;
-                this.InspirationTip.Opacity = 1;
             }
         }
 
@@ -107,9 +179,7 @@
             this.Frame.Navigate(typeof(AddWorkoutPage));
         }
 
-
-        // Data Base methods
-
+        //TODO: Data Base methods
         private async void RefreshPage()
         {
             var mainPage = this.DataContext as MainPageViewModel;
@@ -144,6 +214,5 @@
             var result = await connection.Table<DailyWorkout>().ToListAsync();
             return result;
         }
-
     }
 }

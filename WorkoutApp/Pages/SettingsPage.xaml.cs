@@ -15,12 +15,24 @@
             this.InitializeComponent();
             this.DataContext = new SettingsPageViewModel();
 
-            //TODO: Navigation events
             this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
             this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
             this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
             this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
             this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
+
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+            Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+        }
+
+        private void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            ToastHelper.PopToast("Workout", "Suspend");
+        }
+
+        private void App_Resuming(object sender, object e)
+        {
+            ToastHelper.PopToast("Workout", "Resume/Start");
         }
 
         private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
@@ -28,10 +40,6 @@
             if (curentView != "Home")
             {
                 Frame.Navigate(typeof(MainPage));
-            }
-            else
-            {
-                //TODO: Get new inspiration tip.
             }
         }
 
@@ -93,6 +101,7 @@
                 }
             }
 
+            ToastHelper.PopToast("Settings", "Updated");
         }
     }
 }

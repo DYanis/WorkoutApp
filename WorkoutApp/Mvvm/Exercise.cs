@@ -1,7 +1,7 @@
-﻿using SQLite.Net.Attributes;
-
-namespace WorkoutApp.Mvvm
+﻿namespace WorkoutApp.Mvvm
 {
+    using SQLite.Net.Attributes;
+
     public class Exercise
     {
         [PrimaryKey]

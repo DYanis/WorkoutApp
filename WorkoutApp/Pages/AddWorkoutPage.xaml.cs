@@ -1,13 +1,14 @@
 ﻿namespace WorkoutApp.Pages
 {
+    using Helpers;
     using Mvvm;
     using SQLite.Net;
     using SQLite.Net.Async;
     using SQLite.Net.Platform.WinRT;
     using System;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
+    using Windows.ApplicationModel;
     using Windows.Storage;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
@@ -28,6 +29,19 @@
             this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
             this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
             this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
+
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+            Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+        }
+
+        private void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            ToastHelper.PopToast("Workout", "Suspend");
+        }
+
+        private void App_Resuming(object sender, object e)
+        {
+            ToastHelper.PopToast("Workout", "Resume/Start");
         }
 
         private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
@@ -35,10 +49,6 @@
             if (curentView != "Home")
             {
                 Frame.Navigate(typeof(MainPage));
-            }
-            else
-            {
-                //TODO: Get new inspiration tip.
             }
         }
 
