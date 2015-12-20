@@ -9,6 +9,7 @@
 
     public sealed partial class StatisticsPage : Page
     {
+        Library animationLibrary;
         private string curentView = "Statistics";
 
         public StatisticsPage()
@@ -24,6 +25,28 @@
 
             Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
             Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+
+            animationLibrary = new Library();
+
+            this.StartRandomEffect();
+        }
+
+        private void StartRandomEffect()
+        {
+            Random random = new Random();
+            int selector = random.Next(0, 3);
+            switch (selector)
+            {
+                case 0:
+                    animationLibrary.Rotate("X", ref Display);
+                    break;
+                case 1:
+                    animationLibrary.Rotate("Z", ref Display);
+                    break;
+                default:
+                    animationLibrary.Rotate("Y", ref Display);
+                    break;
+            }
         }
 
         private void App_Suspending(object sender, SuspendingEventArgs e)
