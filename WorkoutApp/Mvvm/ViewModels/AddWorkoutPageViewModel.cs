@@ -29,5 +29,19 @@
                 };
             }
         }
+
+        public List<WorkoutType> WorkoutTypes
+        {
+            get
+            {
+                return new List<WorkoutType>()
+                {
+                    WorkoutType.StreetWourkout,
+                    WorkoutType.Fitness,                   
+                    WorkoutType.Cardio,
+                    WorkoutType.CrossFit
+                };
+            }
+        }
     }
 }

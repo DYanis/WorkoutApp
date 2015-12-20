@@ -11,6 +11,7 @@
             this.InitializeComponent();
             this.DataContext = new AddWorkoutPageViewModel();
             this.weekDays.SelectedIndex = 0;
+            this.workoutTypes.SelectedIndex = 0;
         }
 
         private void OnGoToHomePageClick(object sender, RoutedEventArgs e)

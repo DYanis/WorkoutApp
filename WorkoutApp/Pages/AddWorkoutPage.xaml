@@ -57,6 +57,26 @@
                         HorizontalAlignment="Stretch"
                         ClockIdentifier="12HourClock"/>
 
+            <TextBlock Text="Choose type"
+                       Grid.Row="2"
+                       Grid.Column="0"/>
+            <ComboBox  ItemsSource="{Binding WorkoutTypes}"
+                       x:Name="workoutTypes"
+                       HorizontalAlignment="Stretch"
+                       Grid.Row="2"
+                       Grid.Column="1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center"
+                                       Text="{Binding}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
+            
+
         </Grid>
         <Grid Grid.Row="2"            
               Background="LightGray"
