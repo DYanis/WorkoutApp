@@ -98,10 +98,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\AppNavigation.xaml.cs" />
     <Compile Include="Helpers\GetInternetConnectionStatus.cs" />
     <Compile Include="Helpers\GetRandomExercise.cs" />
     <Compile Include="Helpers\Imagerations\GetRandomInspirationImage.cs" />
     <Compile Include="Helpers\Inspirations\GetRandomInspirationTip.cs" />
+    <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Mvvm\DailyWorkout.cs" />
     <Compile Include="Mvvm\ViewModels\AddWorkoutPageViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\ExercisesPageViewModel.cs" />
@@ -155,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CustomControls\AppNavigation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\AddWorkoutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

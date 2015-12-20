@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page xmlns:CustomControls="using:WorkoutApp.CustomControls" 
     x:Class="WorkoutApp.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -24,58 +24,25 @@
                        Text="{Binding InspirationTipContent}" 
                        Style="{StaticResource InspirationTipStyle}"/>
 
+
+            <StackPanel x:Name="SettingsTab1" Orientation="Horizontal">
+                <TextBlock Text="Screen capture:" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                <RadioButton x:Name="SCOn" Content="On" GroupName="IsCapturableGroupSeeings"/>
+                <RadioButton x:Name="SCOff" Content="Off" GroupName="IsCapturableGroupSeeings"/>
+            </StackPanel>
+
+            <StackPanel x:Name="SettingsTab2" Orientation="Horizontal">
+                <TextBlock Text="Auto play video" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                <RadioButton x:Name="APVOn" Content="On" GroupName="AutoPlayVideoSeeings"/>
+                <RadioButton x:Name="APVOff" Content="Off" GroupName="AutoPlayVideoSeeings"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Button HorizontalAlignment="Stretch" Margin="25,10,25,0" Height="35" Content="Save settigs" Click="SaveSettingsAsync"></Button>
+            </StackPanel>
         </StackPanel>
 
-        <Grid Grid.Row="1"            
-              Background="LightGray"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            
-            <AppBarButton x:Name ="Home"
-                          Icon="Home"
-                          Grid.Column="0"
-                          Height="50"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"
-                          Click="OnGoToHomePageClick"/>
-
-            <AppBarButton x:Name ="Motivation" 
-                          Icon="World"  
-                          Grid.Column="1"
-                          Height="50"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"
-                          Click="OnGoToMotivationPageClick"/>
-
-            <AppBarButton x:Name ="AddWorkout" 
-                          Icon="Add"
-                          Height="50"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"
-                          Grid.Column="2"
-                          Click="OnAddWorkoutClick"/>
-
-            <AppBarButton x:Name ="EditAlerts" 
-                          Icon="Calendar"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"
-                          Grid.Column="3"                          
-                          Height="50"/>
-
-            <AppBarButton x:Name ="GoToSettings" 
-                          Icon="Setting"
-                          Grid.Column="4"
-                          Height="50"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"/>
-        </Grid>
+        <!--<CustomControls:AppNavigation x:Name="AppNav" Grid.Row="1" Height="50" VerticalAlignment="Bottom"/>-->
     </Grid>
 
 </Page>
