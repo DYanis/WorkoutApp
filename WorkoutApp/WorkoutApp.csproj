@@ -99,11 +99,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\AppNavigation.xaml.cs" />
+    <Compile Include="Helpers\AssetsHelper.cs" />
     <Compile Include="Helpers\GetInternetConnectionStatus.cs" />
     <Compile Include="Helpers\GetRandomExercise.cs" />
     <Compile Include="Helpers\Imagerations\GetRandomInspirationImage.cs" />
     <Compile Include="Helpers\Inspirations\GetRandomInspirationTip.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Mvvm\DailyWorkout.cs" />
     <Compile Include="Mvvm\Exercise.cs" />
     <Compile Include="Mvvm\ViewModels\AddWorkoutPageViewModel.cs" />

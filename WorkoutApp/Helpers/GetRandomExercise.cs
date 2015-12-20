@@ -8,7 +8,7 @@
     {
         Random random = new Random();
 
-        public async Task<Tuple<string,string>> GetRandomExerciseAsync()
+        public async Task<Tuple<string, string>> GetRandomExerciseAsync()
         {
             var desiredFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             desiredFolder = await desiredFolder.GetFolderAsync("Assets");
