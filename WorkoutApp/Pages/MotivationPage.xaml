@@ -1,0 +1,114 @@
+﻿<Page
+    x:Class="WorkoutApp.Pages.MotivationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WorkoutApp.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+
+            <TextBlock Text="{Binding Title}" 
+                       Style="{StaticResource TitleStyle}"/>
+
+            <TextBlock x:Name="InspirationTip" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Grid.Column="1"                   
+                       Text="{Binding InspirationTipContent}" 
+                       Style="{StaticResource InspirationTipStyle}"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="ExerciseTitle" Text="Exercise Title" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontWeight="Bold"/>
+
+                <Border Grid.Row="1" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Width="320">
+                    <MediaElement x:Name="MediaElement"
+                          Source="http://videocdn.bodybuilding.com/video/mp4/40000/40381m.mp4"
+                          Height="240"
+                          Width="320"
+                          AutoPlay="True"
+                          Grid.Row="1"
+                          />
+                </Border>
+
+                <Button Content="-5s" Grid.Row="2" Grid.Column="0" Width="75" HorizontalAlignment="right" Margin="10" Click="MediaRewind"/>
+                <Button Content="play|pause" Grid.Row="2" Grid.Column="1" Width="100" HorizontalAlignment="center" Margin="10" Click="MediaPlayPause"/>
+                <Button Content="+5s" Grid.Row="2" Grid.Column="2" Width="75" HorizontalAlignment="Left" Margin="10" Click="MediaForward"/>
+
+                <Button Content="Get me a new exercise!" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="200" HorizontalAlignment="Center" Margin="10" Click="GetMeANewExerciseAsync"/>
+
+            </Grid>
+            
+        </StackPanel>
+
+        <Grid Grid.Row="1"            
+              Background="LightGray"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <AppBarButton x:Name ="Home"
+                          Icon="Home"
+                          Grid.Column="0"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Click="OnGoToHomePageClick"/>
+            
+            <AppBarButton x:Name ="EditAlerts" 
+                          Icon="Calendar"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Grid.Column="3"                          
+                          Height="50"/>
+            
+            <AppBarButton x:Name ="Motivation" 
+                          Icon="World"  
+                          Grid.Column="1"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"/>
+
+            <AppBarButton x:Name ="AddWorkout" 
+                          Icon="Add"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Grid.Column="2"
+                          Click="OnAddWorkoutClick"/>
+            
+            <AppBarButton x:Name ="GoToSettings" 
+                          Icon="Setting"
+                          Grid.Column="4"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Click="OnGoToSettingsPageClick"/>
+        </Grid>
+    </Grid>
+
+</Page>

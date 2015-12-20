@@ -1,0 +1,138 @@
+﻿<Page
+    x:Class="WorkoutApp.Pages.MainPage"
+    Loaded="PopulateInspirationTipAsync"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WorkoutApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="PaneStoryboard">
+            <DoubleAnimation Duration="0:0:1" To="1" Storyboard.TargetProperty="(FrameworkElement.Opacity)" Storyboard.TargetName="Test" EnableDependentAnimation="True"/>
+        </Storyboard>
+
+        <Storyboard x:Name="CloseStoryboard">
+            <DoubleAnimation Duration="0:0:1" To="0" Storyboard.TargetProperty="(FrameworkElement.Opacity)" Storyboard.TargetName="Test" EnableDependentAnimation="True"/>
+        </Storyboard>
+
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Background="Blue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="InspirationTip" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"                 
+                       Text="{Binding InspirationTipContent}" 
+                       Style="{StaticResource InspirationTipStyle}"
+                       Grid.Row="0"/>
+
+            <ListView Name="workoutsListContainer"                                     
+                      ItemsSource="{Binding WeekWorkouts}"
+                      Grid.Row="1"
+                      Background="SkyBlue"
+                      HorizontalAlignment="Stretch">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                        
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Start}"
+                                       FontSize="20"/>
+                          
+                           
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{Binding Day}"
+                                       FontSize="20"/>
+                           
+                          
+                            <TextBlock Grid.Column="1" 
+                                       Grid.RowSpan="2"
+                                       Text="{Binding Type}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       FontSize="40"
+                                       FontWeight="Medium"/>
+                          
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+        <Grid Grid.Row="1"            
+              Background="LightGray"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <AppBarButton x:Name ="Home"
+                          Icon="Home"
+                          Grid.Column="0"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Click="PopulateInspirationTipAsync"/>
+
+            <AppBarButton x:Name ="Motivation" 
+                          Icon="World"  
+                          Grid.Column="1"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Click="OnGoToMotivationPageClick"/>
+
+            <AppBarButton x:Name ="AddWorkout" 
+                          Icon="Add"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Grid.Column="2"
+                          Click="OnAddWorkoutClick"/>
+
+            <AppBarButton x:Name ="EditAlerts" 
+                          Icon="Calendar"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Grid.Column="3"                          
+                          Height="50"/>
+
+            <AppBarButton x:Name ="GoToSettings" 
+                          Icon="Setting"
+                          Grid.Column="4"
+                          Height="50"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Click="OnGoToSettingsPageClick"/>
+        </Grid>
+    </Grid>
+</Page>
