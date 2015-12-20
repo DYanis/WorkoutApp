@@ -6,6 +6,7 @@
     using Windows.ApplicationModel;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
 
     public sealed partial class StatisticsPage : Page
     {
@@ -29,6 +30,70 @@
             animationLibrary = new Library();
 
             this.StartRandomEffect();
+
+            //TODO: Input and gesture processing and showcase
+            inputTarget.PointerPressed += new PointerEventHandler(target_PointerPressed);
+            inputTarget.PointerReleased += new PointerEventHandler(target_PointerReleased);
+
+            inputTarget.PointerEntered += new PointerEventHandler(target_PointerEntered);
+            inputTarget.PointerExited += new PointerEventHandler(target_PointerExited);
+
+            inputTarget.Tapped += new TappedEventHandler(target_Tapped);
+            inputTarget.DoubleTapped += new DoubleTappedEventHandler(target_DoubleTapped);
+
+            inputTarget.Holding += new HoldingEventHandler(target_Holding);
+            inputTarget.RightTapped += new RightTappedEventHandler(target_RightTapped);
+        }
+
+        void target_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Press/Touch");
+        }
+
+        void target_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Press/Touch release");
+        }
+
+        void target_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Entered screen area");
+        }
+
+        void target_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Exited screen area");
+        }
+
+        void target_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Click/Tap");
+        }
+
+        void target_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Double click/tap");
+        }
+
+        void target_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            ToastHelper.PopToast("Gesture", "Right click/tap");
+        }
+
+        void target_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                ToastHelper.PopToast("Gesture", "Holding");
+            }
+            else if (e.HoldingState == Windows.UI.Input.HoldingState.Completed)
+            {
+                ToastHelper.PopToast("Gesture", "Held");
+            }
+            else
+            {
+                ToastHelper.PopToast("Gesture", "Hold canceled");
+            }
         }
 
         private void StartRandomEffect()
