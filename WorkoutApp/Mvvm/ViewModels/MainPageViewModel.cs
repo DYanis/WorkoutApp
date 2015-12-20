@@ -1,7 +1,6 @@
 ﻿namespace WorkoutApp.Mvvm.ViewModels
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
 
     public class MainPageViewModel : IPageViewModel
@@ -39,7 +38,6 @@
                 value.ToList().ForEach(this.weekWorkouts.Add);
             }
         }
-
 
         public string InspirationTipContent { get; set; }
     }
