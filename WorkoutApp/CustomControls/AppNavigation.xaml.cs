@@ -14,6 +14,10 @@
 
         public event MyEventHandler OnNavigateParentReadyForAddWorkout;
 
+        public event MyEventHandler OnNavigateParentReadyForStatistics;
+
+        public event MyEventHandler OnNavigateParentReadyForSettings;
+
         public AppNavigation()
         {
             this.InitializeComponent();
@@ -32,6 +36,16 @@
         private void OnGoToAddWorkoutPageClick(object sender, RoutedEventArgs e)
         {
             this.OnNavigateParentReadyForAddWorkout(this, null);
+        }
+
+        private void OnGoToStatisticsPageClick(object sender, RoutedEventArgs e)
+        {
+            this.OnNavigateParentReadyForStatistics(this, null);
+        }
+
+        private void OnGoToSettingsPageClick(object sender, RoutedEventArgs e)
+        {
+            this.OnNavigateParentReadyForSettings(this, null);
         }
     }
 }

@@ -39,27 +39,29 @@
                           Click="OnGoToMotivationPageClick"
                           />
 
-            <AppBarButton x:Name ="InviteWorkoutBuddy" 
-                          Icon="AddFriend"
+            <AppBarButton x:Name ="AddWorkout" 
+                          Icon="Add"
                           Height="50"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Center"
                           Grid.Column="2"
                           Click="OnGoToAddWorkoutPageClick"/>
 
-            <AppBarButton x:Name ="EditAlerts" 
+            <AppBarButton x:Name ="Statistics" 
                           Icon="Calendar"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Center"
                           Grid.Column="3"                          
-                          Height="50"/>
+                          Height="50"
+                          Click="OnGoToStatisticsPageClick"/>
 
-            <AppBarButton x:Name ="GoToSettings" 
+            <AppBarButton x:Name ="Settings" 
                           Icon="Setting"
                           Grid.Column="4"
                           Height="50"
                           HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"/>
+                          VerticalAlignment="Center"
+                          Click="OnGoToSettingsPageClick"/>
         </Grid>
     </Grid>
 </UserControl>

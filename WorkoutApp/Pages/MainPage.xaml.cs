@@ -11,12 +11,20 @@
 
     public sealed partial class MainPage : Page
     {
+        private string curentView = "Home";
         private Timer timer;
 
         public MainPage()
         {
             this.InitializeComponent();
             var mainPageViewModel = new MainPageViewModel();
+
+            this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
+            this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
+            this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
+            this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
+            this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
+
             mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
             {
                 Day = DayOfWeek.Friday,
@@ -70,21 +78,49 @@
             this.DataContext = mainPageViewModel;
         }
 
-        //private void InitializeInspirationImageTimer()
-        //{
-        //    timer = new Timer(timerCallback, null, TimeSpan.FromMinutes(1).Milliseconds, Timeout.Infinite);
-        //}
+        private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
+        {
+            if (curentView != "Home")
+            {
+                Frame.Navigate(typeof(MainPage));
+            }
+            else
+            {
+                //TODO: Get new inspiration tip.
+            }
+        }
 
-        //private async void timerCallback(object state)
-        //{
-        //    // do some work not connected with UI
+        private void AppNav_OnNavigateParentReadyForMotivation(object source, EventArgs e)
+        {
+            if (curentView != "Motivation")
+            {
+                Frame.Navigate(typeof(MotivationPage));
+            }
+        }
 
-        //    await Window.Current.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-        //        () => 
-        //        {
-        //            int i = 1 + 1;
-        //        });
-        //}
+        private void AppNav_OnNavigateParentReadyForAddWorkout(object source, EventArgs e)
+        {
+            if (curentView != "AddWorkout")
+            {
+                Frame.Navigate(typeof(AddWorkoutPage));
+            }
+        }
+
+        private void AppNav_OnNavigateParentReadyForStatistics(object source, EventArgs e)
+        {
+            if (curentView != "Statistics")
+            {
+                //Frame.Navigate(typeof(StatisticsPage));
+            }
+        }
+
+        private void AppNav_OnNavigateParentReadyForSettings(object source, EventArgs e)
+        {
+            if (curentView != "Settings")
+            {
+                Frame.Navigate(typeof(SettingsPage));
+            }
+        }
 
         private async void PopulateInspirationTipAsync(object sender, RoutedEventArgs e)
         {

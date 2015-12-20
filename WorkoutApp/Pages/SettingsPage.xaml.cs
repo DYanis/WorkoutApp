@@ -17,9 +17,11 @@
             this.DataContext = new SettingsPageViewModel();
 
             //TODO: Navigation events
-            //this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
-            //this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
-            //this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
+            this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
+            this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
+            this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
+            this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
+            this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
         }
 
         private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
@@ -47,6 +49,22 @@
             if (curentView != "AddWorkout")
             {
                 Frame.Navigate(typeof(AddWorkoutPage));
+            }
+        }
+
+        private void AppNav_OnNavigateParentReadyForStatistics(object source, EventArgs e)
+        {
+            if (curentView != "Statistics")
+            {
+                //Frame.Navigate(typeof(StatisticsPage));
+            }
+        }
+
+        private void AppNav_OnNavigateParentReadyForSettings(object source, EventArgs e)
+        {
+            if (curentView != "Settings")
+            {
+                Frame.Navigate(typeof(SettingsPage));
             }
         }
 
