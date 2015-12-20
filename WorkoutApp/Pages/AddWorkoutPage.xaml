@@ -9,10 +9,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
-          VerticalAlignment="Center">
+          VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
@@ -26,10 +27,10 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="300"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2.7*"/>
@@ -39,6 +40,7 @@
                        Text="Choose day"
                        Grid.Row="0"
                        Grid.Column="0"
+                       HorizontalAlignment="Stretch"
                        VerticalAlignment="Center"/>
             <ComboBox  ItemsSource="{Binding WeekDays}"
                        Name="weekDays"
@@ -61,7 +63,9 @@
             <TextBlock Text="Choose time"
                        Grid.Row="1"
                        VerticalAlignment="Center"
+                       HorizontalAlignment="Stretch"
                        Grid.Column="0"/>
+
             <TimePicker Name="workoutTime"
                         Grid.Row="1"
                         Grid.Column="1"
@@ -71,9 +75,10 @@
 
             <TextBlock Text="Choose type"
                        Grid.Row="2"
-                        VerticalAlignment="Center"
+                       VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch"
                        Grid.Column="0"/>
-            
+
             <ComboBox  ItemsSource="{Binding WorkoutTypes}"
                        Name="workoutTypes"
                        VerticalAlignment="Stretch"
@@ -102,8 +107,7 @@
                 <TextBox Name="exerciseName"
                          PlaceholderText="Exercise"
                          Grid.Column="0"
-                         VerticalAlignment="Stretch"
-                         HorizontalAlignment="Stretch"/>
+                         VerticalAlignment="Stretch"/>
 
                 <ComboBox  Name="repetitions"
                            ItemsSource="{Binding Repetitions}"                 
@@ -133,7 +137,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                
+
                 <AppBarButton Icon="Add"
                               Grid.Column="3"
                               VerticalAlignment="Stretch"
@@ -141,33 +145,74 @@
 
             </Grid>
 
+            <Grid Grid.Row="4"
+                  Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Exercise"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Column="0"/>
+                <TextBlock Text="Repetition"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Column="1"/>
+                <TextBlock Text="Break time"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Column="2"/>
+            </Grid>
             <ListView Name="exercisesLV"                                     
                       ItemsSource="{Binding Exercises}"
-                      Grid.Row="4"
+                      Grid.Row="5"
                       Grid.ColumnSpan="2"
+                      HorizontalAlignment="Stretch"
                       Background="SkyBlue"
-                      HorizontalAlignment="Stretch">
+                      MinHeight="50">
                 <ListView.ItemTemplate >
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"
-                                       FontWeight="SemiBold"/>
-                            <TextBlock Text="{Binding Repetitions}"/>
-                            <TextBlock Text="{Binding BreakTimes}"/>
+                        <StackPanel HorizontalAlignment="Stretch"
+                                    Orientation="Horizontal">
+                            <Grid Background="Yellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1.1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding Name}"
+                                       FontWeight="SemiBold"
+                                       HorizontalAlignment="Stretch"
+                                       Grid.Column="0"/>
+                                <TextBlock Text="{Binding Repetitions}"
+                                       HorizontalAlignment="Stretch"
+                                       Grid.Column="1"/>
+                                <TextBlock Text="{Binding BreakTimes}"
+                                       HorizontalAlignment="Stretch"
+                                       Grid.Column="2"/>
+                                <AppBarButton Icon="Cancel" 
+                                          HorizontalAlignment="Stretch"
+                                          Grid.Column="3"
+                                          Click="OnRemoveExerciseClick"/>
+
+                            </Grid>
                         </StackPanel>
+
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-            <Button Content="Add Wokout" 
-                    Grid.Row="5"
-                    Grid.ColumnSpan="2"
-                    VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch"
-                    Click="OnAddNewWorkoutClick"/>
+           
         </Grid>
-        
-        <CustomControls:AppNavigation x:Name="AppNav" Grid.Row="2" Height="50" VerticalAlignment="Bottom"/>
+        <Button Content="Add Wokout"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                Click="OnAddNewWorkoutClick"
+                Grid.Row="2"/>
+        <CustomControls:AppNavigation x:Name="AppNav" Grid.Row="3" Height="50" VerticalAlignment="Bottom"/>
     </Grid>
-
 </Page>

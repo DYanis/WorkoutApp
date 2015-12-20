@@ -6,7 +6,10 @@
     using SQLite.Net.Async;
     using SQLite.Net.Platform.WinRT;
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using Windows.ApplicationModel;
     using Windows.Storage;
@@ -114,11 +117,21 @@
         }
 
         private async void OnAddNewWorkoutClick(object sender, RoutedEventArgs e)
-        {
+        {//TODO: can throw notification when user add without added exercises
+            var exercises = new StringBuilder();
+
+            foreach (var exercise in (this.DataContext as AddWorkoutPageViewModel).Exercises)
+            {
+                exercises.Append(exercise.Name + ", ");
+                exercises.Append(exercise.Repetitions + ", ");
+                exercises.Append(exercise.BreakTimes + ", ");
+                exercises.Append("*razdelitel*");
+            }
+
             var newDailyWorkout = new DailyWorkout()
             {
                 Day = (DayOfWeek)this.weekDays.SelectedValue,
-            //    Exercises = (this.DataContext as AddWorkoutPageViewModel).Exercises.ToList(),
+                Exercises = exercises.ToString(),
                 Start = this.workoutTime.Time,
                 Type = (WorkoutType)this.workoutTypes.SelectedValue
             };
@@ -151,5 +164,19 @@
             return result;
         }
 
+        private void OnRemoveExerciseClick(object sender, RoutedEventArgs e)
+        {
+            var data = (sender as AppBarButton).DataContext;
+            var exerciseInfo = (data as Exercise);
+            var exercise = new Exercise()
+            {
+                Name = exerciseInfo.Name,
+                BreakTimes = exerciseInfo.BreakTimes,
+                Repetitions = exerciseInfo.Repetitions
+
+            };
+
+            (this.DataContext as AddWorkoutPageViewModel).Exercises.Remove(exercise);
+        }
     }
 }

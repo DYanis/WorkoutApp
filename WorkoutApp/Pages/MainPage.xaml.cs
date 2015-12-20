@@ -26,12 +26,9 @@
         public MainPage()
         {
             this.InitializeComponent();
-            var mainPageViewModel = new MainPageViewModel();
-
-            //TODO: SQL
             this.InitAsync();
             this.DataContext = new MainPageViewModel();
-            //this.RefreshPage();
+            this.RefreshPage();
 
             this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
             this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
@@ -44,58 +41,6 @@
 
             this.assetsHelper = new AssetsHelper();
             this.assetsHelper.GetTipsData();
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Friday,
-                Type = WorkoutType.CrossFit,
-                Start = new TimeSpan(5, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-
-            this.DataContext = mainPageViewModel;
         }
 
         private void App_Suspending(object sender, SuspendingEventArgs e)
@@ -183,7 +128,12 @@
         private async void RefreshPage()
         {
             var mainPage = this.DataContext as MainPageViewModel;
-            mainPage.WeekWorkouts.AddRange(await GetAllDailyWorkoutsAsync());
+            var workouts = await GetAllDailyWorkoutsAsync();
+          
+            foreach (var workout in workouts)
+            {
+                mainPage.WeekWorkouts.Add(workout);
+            }
         }
 
         private async void InitAsync()

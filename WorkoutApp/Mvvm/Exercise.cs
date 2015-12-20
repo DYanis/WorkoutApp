@@ -1,21 +1,33 @@
 ﻿namespace WorkoutApp.Mvvm
 {
-    using SQLite.Net.Attributes;
-
     public class Exercise
     {
-        [PrimaryKey]
-        [AutoIncrement]
-        public int ID { get; set; }
-
         public string Name { get; set; }
 
         public int Repetitions { get; set; }
 
         public int BreakTimes { get; set; }
 
-        public int DailyWorkoutID { get; set; }
+        public override bool Equals(object obj)
+        {
+            var other = obj as Exercise;
 
-        public virtual DailyWorkout DailyWorkout { get; set; }
+            if (other.Name != this.Name)
+            {
+                return false;
+            }
+
+            if (other.Repetitions != this.Repetitions)
+            {
+                return false;
+            }
+
+            if (other.BreakTimes != this.BreakTimes)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

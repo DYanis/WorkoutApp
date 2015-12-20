@@ -2,7 +2,6 @@
 {
     using SQLite.Net.Attributes;
     using System;
-    //using System.Collections.Generic;
 
     public class DailyWorkout
     {
@@ -17,6 +16,6 @@
 
         public DayOfWeek Day { get; set; }
 
-       // public  List<Exercise> Exercises { get; set; }    
+        public string Exercises { get; set; }
     }
 }
