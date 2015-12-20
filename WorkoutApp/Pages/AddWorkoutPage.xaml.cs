@@ -6,9 +6,7 @@
     using SQLite.Net.Async;
     using SQLite.Net.Platform.WinRT;
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using Windows.ApplicationModel;
@@ -111,6 +109,10 @@
                 BreakTimes = (int)this.breakTimes.SelectedValue
             };
 
+            this.exerciseName.Text = string.Empty;
+            this.repetitions.SelectedValue = string.Empty;
+            this.breakTimes.SelectedValue = string.Empty;
+
             (this.DataContext as AddWorkoutPageViewModel).Exercises.Add(newExercise);
 
             ToastHelper.PopToast("Workout template", string.Format("{0} was added to the workout.", this.exerciseName.Text));
@@ -139,6 +141,7 @@
             ToastHelper.PopToast("Workout", "Added to reminders.");
 
             await InserWorkoutAsync(newDailyWorkout);
+            this.Frame.Navigate(typeof(MainPage));
         }
 
         private SQLiteAsyncConnection GetDbConnectionAsync()
