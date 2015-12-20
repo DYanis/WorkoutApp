@@ -105,6 +105,7 @@
     <Compile Include="Helpers\Inspirations\GetRandomInspirationTip.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Mvvm\DailyWorkout.cs" />
+    <Compile Include="Mvvm\Exercise.cs" />
     <Compile Include="Mvvm\ViewModels\AddWorkoutPageViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\ExercisesPageViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\StatisticsPageViewModel.cs" />
@@ -186,7 +187,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="SQLite.UAP.2015, Version=3.9.2">
+      <Name>SQLite for Universal App Platform</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

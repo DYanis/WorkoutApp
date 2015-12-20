@@ -4,10 +4,17 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using WorkoutApp.Helpers.Inspirations;
-    using Pages;
     using System.Threading;
     using System;
     using Mvvm;
+    using SQLite.Net.Async;
+    using System.IO;
+    using Windows.Storage;
+    using SQLite.Net;
+    using SQLite.Net.Platform.WinRT;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public sealed partial class MainPage : Page
     {
@@ -17,65 +24,17 @@
         public MainPage()
         {
             this.InitializeComponent();
-            var mainPageViewModel = new MainPageViewModel();
+            this.InitAsync();
+            this.DataContext = new MainPageViewModel();
+//this.RefreshPage();
+
+
 
             this.AppNav.OnNavigateParentReadyForHome += AppNav_OnNavigateParentReadyForHome;
             this.AppNav.OnNavigateParentReadyForMotivation += AppNav_OnNavigateParentReadyForMotivation;
             this.AppNav.OnNavigateParentReadyForAddWorkout += AppNav_OnNavigateParentReadyForAddWorkout;
             this.AppNav.OnNavigateParentReadyForStatistics += AppNav_OnNavigateParentReadyForStatistics;
             this.AppNav.OnNavigateParentReadyForSettings += AppNav_OnNavigateParentReadyForSettings;
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Friday,
-                Type = WorkoutType.CrossFit,
-                Start = new TimeSpan(5, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-            mainPageViewModel.WeekWorkouts.Add(new DailyWorkout
-            {
-                Day = DayOfWeek.Sunday,
-                Type = WorkoutType.Fitness,
-                Start = new TimeSpan(13, 24, 33)
-            });
-
-
-            this.DataContext = mainPageViewModel;
         }
 
         private void AppNav_OnNavigateParentReadyForHome(object source, EventArgs e)
@@ -147,5 +106,44 @@
         {
             this.Frame.Navigate(typeof(AddWorkoutPage));
         }
+
+
+        // Data Base methods
+
+        private async void RefreshPage()
+        {
+            var mainPage = this.DataContext as MainPageViewModel;
+            mainPage.WeekWorkouts.AddRange(await GetAllDailyWorkoutsAsync());
+        }
+
+        private async void InitAsync()
+        {
+            var connection = this.GetDbConnectionAsync();
+            await connection.CreateTableAsync<DailyWorkout>();
+        }
+
+        private SQLiteAsyncConnection GetDbConnectionAsync()
+        {
+            var dbFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            
+            var connectionFactory =
+                new Func<SQLiteConnectionWithLock>(
+                    () =>
+                    new SQLiteConnectionWithLock(
+                        new SQLitePlatformWinRT(),
+                        new SQLiteConnectionString(dbFilePath, storeDateTimeAsTicks: false)));
+
+            var asyncConnection = new SQLiteAsyncConnection(connectionFactory);
+
+            return asyncConnection;
+        }
+
+        private async Task<List<DailyWorkout>> GetAllDailyWorkoutsAsync()
+        {
+            var connection = this.GetDbConnectionAsync();
+            var result = await connection.Table<DailyWorkout>().ToListAsync();
+            return result;
+        }
+
     }
 }

@@ -1,11 +1,12 @@
 ﻿namespace WorkoutApp.Mvvm.ViewModels
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
 
     public class MainPageViewModel : IPageViewModel
     {
-        private ObservableCollection<DailyWorkout> weekWorkouts;
+        private List<DailyWorkout> weekWorkouts;
 
         public string Title
         {
@@ -15,13 +16,13 @@
             }
         }
 
-        public ObservableCollection<DailyWorkout> WeekWorkouts
+        public List<DailyWorkout> WeekWorkouts
         {
             get
             {
                 if (this.weekWorkouts == null)
                 {
-                    this.weekWorkouts = new ObservableCollection<DailyWorkout>();
+                    this.weekWorkouts = new List<DailyWorkout>();
                 }
 
                 return this.weekWorkouts;
@@ -30,7 +31,7 @@
             {
                 if (this.weekWorkouts == null)
                 {
-                    this.weekWorkouts = new ObservableCollection<DailyWorkout>();
+                    this.weekWorkouts = new List<DailyWorkout>();
                 }
 
                 this.weekWorkouts.Clear();

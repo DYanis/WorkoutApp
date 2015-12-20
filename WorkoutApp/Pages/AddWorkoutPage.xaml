@@ -8,7 +8,8 @@
    xmlns:mcc="using:System"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+          VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="1*"/>
@@ -24,17 +25,22 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2.7*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Choose day"
+            <TextBlock Name="workoutDay"
                        Grid.Row="0"
-                       Grid.Column="0"/>
+                       Grid.Column="0"
+                       VerticalAlignment="Center"/>
             <ComboBox  ItemsSource="{Binding WeekDays}"
-                       x:Name="weekDays"
+                       Name="weekDays"
+                       VerticalAlignment="Stretch"
                        HorizontalAlignment="Stretch"
                        Grid.Row="0"
                        Grid.Column="1">
@@ -42,6 +48,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Stretch"
                                        Text="{Binding}"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
@@ -51,17 +58,23 @@
 
             <TextBlock Text="Choose time"
                        Grid.Row="1"
+                       VerticalAlignment="Center"
                        Grid.Column="0"/>
-            <TimePicker Grid.Row="1"
+            <TimePicker Name="workoutTime"
+                        Grid.Row="1"
                         Grid.Column="1"
+                        VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch"
                         ClockIdentifier="12HourClock"/>
 
             <TextBlock Text="Choose type"
                        Grid.Row="2"
+                        VerticalAlignment="Center"
                        Grid.Column="0"/>
+            
             <ComboBox  ItemsSource="{Binding WorkoutTypes}"
-                       x:Name="workoutTypes"
+                       Name="workoutTypes"
+                       VerticalAlignment="Stretch"
                        HorizontalAlignment="Stretch"
                        Grid.Row="2"
                        Grid.Column="1">
@@ -74,10 +87,84 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            
-            
 
+            <Grid Grid.Row="3"
+                  Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Name="exerciseName"
+                         PlaceholderText="Exercise"
+                         Grid.Column="0"
+                         VerticalAlignment="Stretch"
+                         HorizontalAlignment="Stretch"/>
+
+                <ComboBox  Name="repetitions"
+                           ItemsSource="{Binding Repetitions}"                 
+                           HorizontalAlignment="Stretch"  
+                           VerticalAlignment="Stretch"
+                           Grid.Column="1">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                       Text="{Binding}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox  Name="breakTimes"
+                           ItemsSource="{Binding BreakTimes}"                 
+                           HorizontalAlignment="Stretch"  
+                           VerticalAlignment="Stretch"
+                           Grid.Column="2">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                       Text="{Binding}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                
+                <AppBarButton Icon="Add"
+                              Grid.Column="3"
+                              VerticalAlignment="Stretch"
+                              Click="OnAddNewExerciseClick"/>
+
+            </Grid>
+
+            <ListView Name="exercisesLV"                                     
+                      ItemsSource="{Binding Exercises}"
+                      Grid.Row="4"
+                      Grid.ColumnSpan="2"
+                      Background="SkyBlue"
+                      HorizontalAlignment="Stretch">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding Repetitions}"/>
+                            <TextBlock Text="{Binding BreakTimes}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Content="Add Wokout" 
+                    Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Click="OnAddNewWorkoutClick"/>
         </Grid>
+        
         <CustomControls:AppNavigation x:Name="AppNav" Grid.Row="2" Height="50" VerticalAlignment="Bottom"/>
     </Grid>
 
