@@ -45,7 +45,7 @@
                       HorizontalAlignment="Stretch">
                 <ListView.ItemTemplate >
                     <DataTemplate>
-                        <Grid>
+                        <Grid DoubleTapped="OnGoToWorkoutInfoPageDoubleTapped">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
@@ -54,20 +54,17 @@
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-
-                        
+                     
                             <TextBlock Grid.Row="0"
                                        Grid.Column="0"
                                        Text="{Binding Start}"
                                        FontSize="20"/>
-                          
-                           
+                                                   
                             <TextBlock Grid.Row="1"
                                        Grid.Column="0"
                                        Text="{Binding Day}"
                                        FontSize="20"/>
-                           
-                          
+                                                   
                             <TextBlock Grid.Column="1" 
                                        Grid.RowSpan="2"
                                        Text="{Binding Type}"

@@ -124,6 +124,11 @@
             this.Frame.Navigate(typeof(AddWorkoutPage));
         }
 
+        private void OnGoToWorkoutInfoPageDoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(WorkoutInfoPage), (sender as Grid));
+        }
+
         //TODO: Data Base methods
         private async void RefreshPage()
         {
