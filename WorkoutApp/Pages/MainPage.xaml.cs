@@ -16,6 +16,7 @@
     using System.Collections.Generic;
     using Helpers;
     using Windows.ApplicationModel;
+    using Windows.UI.Xaml.Input;
 
     public sealed partial class MainPage : Page
     {
@@ -124,7 +125,7 @@
             this.Frame.Navigate(typeof(AddWorkoutPage));
         }
 
-        private void OnGoToWorkoutInfoPageDoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        private void OnGoToWorkoutInfoPageDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(WorkoutInfoPage), (sender as Grid));
         }
@@ -169,5 +170,25 @@
             var result = await connection.Table<DailyWorkout>().ToListAsync();
             return result;
         }
-    }
+
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as AppBarButton;
+            var workout = button.DataContext as DailyWorkout;
+
+            await DeleteDailyWorkoutAsync(workout);
+            (this.DataContext as MainPageViewModel).WeekWorkouts.Remove(workout);
+        }
+
+           private async Task<int> DeleteDailyWorkoutAsync(DailyWorkout workout)
+           {
+               var connection = this.GetDbConnectionAsync();
+        
+               var query = await connection.Table<DailyWorkout>().Where(x => x.ID == workout.ID).FirstAsync();
+               var result = await connection.DeleteAsync(query);
+               var count = await connection.Table<DailyWorkout>().CountAsync();
+        
+               return result;
+           }
+    }     
 }

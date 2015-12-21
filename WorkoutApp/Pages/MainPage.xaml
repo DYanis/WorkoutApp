@@ -45,8 +45,10 @@
                       HorizontalAlignment="Stretch">
                 <ListView.ItemTemplate >
                     <DataTemplate>
-                        <Grid DoubleTapped="OnGoToWorkoutInfoPageDoubleTapped">
+                        <Grid DoubleTapped="OnGoToWorkoutInfoPageDoubleTapped"
+                             >
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
@@ -72,7 +74,11 @@
                                        HorizontalAlignment="Stretch"
                                        FontSize="40"
                                        FontWeight="Medium"/>
-                          
+                            
+                            <AppBarButton Icon="Cancel"
+                                          Grid.Column="2"
+                                          Click="AppBarButton_Click"/>
+
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

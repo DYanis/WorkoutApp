@@ -45,6 +45,8 @@
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            var grid =  e.Parameter as Grid;
+            this.DataContext = grid.DataContext;
         }
     }
 }
