@@ -101,7 +101,7 @@
     </Compile>
     <Compile Include="CustomControls\AppNavigation.xaml.cs" />
     <Compile Include="Helpers\AssetsHelper.cs" />
-    <Compile Include="Helpers\GetInternetConnectionStatus.cs" />
+    <Compile Include="Helpers\ConnectionHelper.cs" />
     <Compile Include="Helpers\GetRandomExercise.cs" />
     <Compile Include="Helpers\Imagerations\GetRandomInspirationImage.cs" />
     <Compile Include="Helpers\Inspirations\GetRandomInspirationTip.cs" />

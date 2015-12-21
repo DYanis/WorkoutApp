@@ -1,6 +1,7 @@
 ﻿namespace WorkoutApp.Helpers
 {
     using System;
+    using Windows.Networking.Connectivity;
     using Windows.Storage;
     using Windows.Web.Http;
 
@@ -16,9 +17,18 @@
 
         public async void GetTipsData()
         {
-            var response = await this.httpClient.GetAsync(new Uri(tipsUrl));
-            var result = await response.Content.ReadAsStringAsync();
-            this.WriteTipsToStorage(result);
+            ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
+            bool internetConnectivity = ((connectionProfile != null) && (connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess));
+            if (internetConnectivity)
+            {
+                var response = await this.httpClient.GetAsync(new Uri(tipsUrl));
+                var result = await response.Content.ReadAsStringAsync();
+                this.WriteTipsToStorage(result);
+            }
+            else
+            {
+                ToastHelper.PopToast("Alert", "You're not connected to the internet!");
+            }
         }
 
         private async void WriteTipsToStorage(string tipsData)

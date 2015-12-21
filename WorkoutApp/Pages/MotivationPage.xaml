@@ -43,19 +43,19 @@
                           Source="http://videocdn.bodybuilding.com/video/mp4/40000/40381m.mp4"
                           Height="240"
                           Width="320"
-                          AutoPlay="True"
+                          AutoPlay="{Binding GetPlaySetting}"
                           Grid.Row="1"
                           />
                 </Border>
 
-                <Button Content="-5s" Grid.Row="2" Grid.Column="0" Width="75" HorizontalAlignment="right" Margin="10" Click="MediaRewind"/>
-                <Button Content="play|pause" Grid.Row="2" Grid.Column="1" Width="100" HorizontalAlignment="center" Margin="10" Click="MediaPlayPause"/>
-                <Button Content="+5s" Grid.Row="2" Grid.Column="2" Width="75" HorizontalAlignment="Left" Margin="10" Click="MediaForward"/>
+                <Button x:Name="rewindBtn" Content="-5s" Grid.Row="2" Grid.Column="0" Width="75" HorizontalAlignment="right" Margin="10" Click="MediaRewind"/>
+                <Button x:Name="playPauseBtn" Content="play|pause" Grid.Row="2" Grid.Column="1" Width="100" HorizontalAlignment="center" Margin="10" Click="MediaPlayPause"/>
+                <Button x:Name="forwardBtn" Content="+5s" Grid.Row="2" Grid.Column="2" Width="75" HorizontalAlignment="Left" Margin="10" Click="MediaForward"/>
 
-                <Button Content="Get me a new exercise!" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="200" HorizontalAlignment="Center" Margin="10" Click="GetMeANewExerciseAsync"/>
+                <Button x:Name="newExerciseBtn" Content="Get me a new exercise!" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="200" HorizontalAlignment="Center" Margin="10" Click="GetMeANewExerciseAsync"/>
 
             </Grid>
-            
+
         </StackPanel>
 
         <CustomControls:AppNavigation x:Name="AppNav" Grid.Row="2" Height="50" VerticalAlignment="Bottom"/>

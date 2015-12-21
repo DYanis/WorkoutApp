@@ -4,6 +4,7 @@
     using Mvvm.ViewModels;
     using System;
     using Windows.ApplicationModel;
+    using Windows.Networking.Connectivity;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 
@@ -11,6 +12,7 @@
     {
         private string curentView = "Motivation";
         private bool isPlaying = true;
+        private bool connectionAvailable = true;
 
         public MotivationPage()
         {
@@ -25,6 +27,16 @@
 
             Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
             Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+
+            this.IsConnected();
+            if (!this.connectionAvailable)
+            {
+                this.playPauseBtn.IsEnabled = false;
+                this.rewindBtn.IsEnabled = false;
+                this.forwardBtn.IsEnabled = false;
+                this.newExerciseBtn.IsEnabled = false;
+                ToastHelper.PopToast("Alert", "Videos disabled. No internet connection available.");
+            }
         }
 
         private void App_Suspending(object sender, SuspendingEventArgs e)
@@ -92,46 +104,81 @@
             this.Frame.Navigate(typeof(AddWorkoutPage));
         }
 
+        private void IsConnected()
+        {
+            ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
+            bool internetConnectivity = ((connectionProfile != null) && (connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess));
+            this.connectionAvailable = internetConnectivity;
+        }
+
         public void MediaRewind(object sender, RoutedEventArgs e)
         {
-            if ((this.MediaElement.Position - TimeSpan.FromSeconds(5)) > TimeSpan.FromSeconds(0))
+            if (connectionAvailable)
             {
-                this.MediaElement.Position = this.MediaElement.Position - TimeSpan.FromSeconds(5);
+                if ((this.MediaElement.Position - TimeSpan.FromSeconds(5)) > TimeSpan.FromSeconds(0))
+                {
+                    this.MediaElement.Position = this.MediaElement.Position - TimeSpan.FromSeconds(5);
+                }
+            }
+            else
+            {
             }
         }
 
         public void MediaForward(object sender, RoutedEventArgs e)
         {
-            if ((this.MediaElement.Position + TimeSpan.FromSeconds(5)) < MediaElement.NaturalDuration.TimeSpan)
+            if (connectionAvailable)
             {
-                this.MediaElement.Position = this.MediaElement.Position + TimeSpan.FromSeconds(5);
+                if ((this.MediaElement.Position + TimeSpan.FromSeconds(5)) < MediaElement.NaturalDuration.TimeSpan)
+                {
+                    this.MediaElement.Position = this.MediaElement.Position + TimeSpan.FromSeconds(5);
+                }
+            }
+            else
+            {
             }
         }
 
         public void MediaPlayPause(object sender, RoutedEventArgs e)
         {
-            if (this.isPlaying == true)
+            if (connectionAvailable)
             {
-                this.MediaElement.Pause();
-                this.isPlaying = false;
+                if (this.isPlaying == true)
+                {
+                    this.MediaElement.Pause();
+                    this.isPlaying = false;
+                }
+                else
+                {
+                    this.MediaElement.Play();
+                    this.isPlaying = true;
+                }
             }
             else
             {
-                this.MediaElement.Play();
-                this.isPlaying = true;
             }
         }
 
         public async void GetMeANewExerciseAsync(object sender, RoutedEventArgs e)
         {
-            bool isConnected = GetInternetConnectionStatus.IsDeviceConnectedToTheInternet();
-            if (isConnected)
+            if (connectionAvailable)
             {
                 var exerciseManager = new GetRandomExercise();
                 Tuple<string, string> exercise = await exerciseManager.GetRandomExerciseAsync();
                 this.MediaElement.Source = new Uri(exercise.Item2);
                 this.ExerciseTitle.Text = exercise.Item1;
                 ToastHelper.PopToast("Now watching", exercise.Item1);
+            }
+            else
+            {
+            }
+        }
+
+        public bool GetPlaySetting
+        {
+            get
+            {
+                return this.isPlaying;
             }
         }
     }
