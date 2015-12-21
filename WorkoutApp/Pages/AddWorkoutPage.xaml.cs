@@ -124,10 +124,10 @@
 
             foreach (var exercise in (this.DataContext as AddWorkoutPageViewModel).Exercises)
             {
-                exercises.Append(exercise.Name + ", ");
-                exercises.Append(exercise.Repetitions + ", ");
-                exercises.Append(exercise.BreakTimes + ", ");
-                exercises.Append("*razdelitel*");
+                exercises.Append(exercise.Name + "/");
+                exercises.Append(exercise.Repetitions + "/");
+                exercises.Append(exercise.BreakTimes + "/");
+                exercises.Append("$");
             }
 
             var newDailyWorkout = new DailyWorkout()

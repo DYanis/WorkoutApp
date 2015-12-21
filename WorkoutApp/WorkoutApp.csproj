@@ -112,6 +112,7 @@
     <Compile Include="Mvvm\ViewModels\AddWorkoutPageViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\ExercisesPageViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\StatisticsPageViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\WorkoutInfoPageViewModel.cs" />
     <Compile Include="Mvvm\WorkoutType.cs" />
     <Compile Include="Pages\AddWorkoutPage.xaml.cs">
       <DependentUpon>AddWorkoutPage.xaml</DependentUpon>

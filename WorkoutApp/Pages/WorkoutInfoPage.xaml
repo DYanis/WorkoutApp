@@ -8,6 +8,49 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Day}"
+                   Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   FontSize="30"/>
+        <TextBlock Text="{Binding Start}"
+                   HorizontalAlignment="Center"
+                   Grid.Row="2"
+                   FontSize="20"/>
+        <TextBlock Text="{Binding Type}"
+                   HorizontalAlignment="Center"
+                   Grid.Row="0"
+                   FontSize="30"/>
+
+        <ListView Name="exercisesLV"
+                  ItemsSource="{Binding Exercises}"
+                  Grid.Row="3"
+                  Background="SkyBlue"
+                  HorizontalAlignment="Stretch">
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}"
+                                   Grid.Row="0"/>
+                        <TextBlock Text="{Binding Repetitions}"
+                                   Grid.Row="1"/>
+                        <TextBlock Text="{Binding BreakTimes}"
+                                   Grid.Row="2"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
 </Page>
