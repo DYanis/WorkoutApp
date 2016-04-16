@@ -1,2 +1,1 @@
-# WorkoutApp
-Workout App
+# Windows Universal WorkoutApp
